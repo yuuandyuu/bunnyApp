@@ -1,9 +1,8 @@
-import { memo, useEffect, useRef, useState, type FC } from "react";
+import { memo, useEffect, useState, type FC } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import axios from "axios";
 
-import buttonStyles from "../css/button.module.scss";
 import { useIdBunnyProfiles } from "../hooks/useIdBunnyProfiles";
 import { placeholders } from "../data/BunnyProfilePlaceholders";
 

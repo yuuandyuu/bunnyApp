@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState, type FC } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -9,6 +9,9 @@ import { placeholders } from "../data/BunnyProfilePlaceholders";
 import type { EditBunnyProfileType } from "../types/EditBunnyProfileType";
 
 export const BunnyProfileEdit: FC = memo(() => {
+  //routerのnavigate関数を取得
+  const navigate = useNavigate();
+
   // データ
   const { id } = useParams();
 
@@ -63,7 +66,7 @@ export const BunnyProfileEdit: FC = memo(() => {
     return axios
       .put(`/api/bunny-profile/${id}`, addBunny)
       .then((res) => {
-        window.location.href = `/bunnylist/${id}`;
+        navigate(`/bunnylist/${id}`);
         return res.data;
       })
       .catch((err) => {
@@ -106,6 +109,11 @@ export const BunnyProfileEdit: FC = memo(() => {
   // 画像変更のクリックをハンドルする関数
   const onClickInputImg = () => {
     refInputImg.current?.click();
+  };
+
+  // 戻るクリックの関数
+  const onClickBack = () => {
+    navigate(`/bunnylist/${id}`);
   };
 
   // 入力値の変更をハンドルする関数
@@ -307,10 +315,10 @@ export const BunnyProfileEdit: FC = memo(() => {
           更新
         </Button>
         <Button
-          href={`/bunnylist/${id}`}
           variant="outline-success"
           className={`${buttonStyles.clickBtn} ms-2`}
           style={{ width: "25%" }}
+          onClick={onClickBack}
         >
           戻す
         </Button>

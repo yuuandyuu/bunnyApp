@@ -17,7 +17,7 @@ export const Router = () => {
       <Route path="/bunnylist" element={<BunnyList />} />
       <Route path="/bunnylist/:id" element={<BunnyProfile />} />
       <Route path="/bunnylist/:id/edit" element={<BunnyProfileEdit />} />
-      <Route path="/bunnylist/new" element={<BunnyProfileCreate />} />
+      <Route path="/bunnylist/create" element={<BunnyProfileCreate />} />
 
       <Route path="/funfacts" element={<FunFacts />} />
       <Route path="/funfacts/:classification" element={<FunFactsFilter />} />

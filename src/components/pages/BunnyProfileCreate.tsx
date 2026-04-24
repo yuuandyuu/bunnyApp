@@ -5,8 +5,11 @@ import axios from "axios";
 import buttonStyles from "../css/button.module.scss";
 import type { CreateBunnyProfileType } from "../types/CreateBunnyProfileType";
 import { placeholders } from "../data/BunnyProfilePlaceholders";
+import { useNavigate } from "react-router-dom";
 
 export const BunnyProfileCreate: FC = memo(() => {
+  //routerのnavigate関数を取得
+  const navigate = useNavigate();
   // データ
   const bunny = {
     name: "未知のうさぎ",
@@ -49,7 +52,7 @@ export const BunnyProfileCreate: FC = memo(() => {
     return axios
       .post(`/api/bunny-profile`, addBunny)
       .then((res) => {
-        window.location.href = "/bunnylist";
+        navigate("/bunnylist");
         return res.data;
       })
       .catch((err) => {
@@ -60,12 +63,6 @@ export const BunnyProfileCreate: FC = memo(() => {
       .finally(() => setUploadLoading(false));
   };
 
-  if (uploadLoading) {
-    return <div>うさぎの情報の追加がLoading...</div>;
-  }
-  if (uploadError) {
-    return <div>うさぎの情報の追加に失敗しました。</div>;
-  }
   // 新規追加のクリックをハンドルする関数
   const onClickAddBunny = () => {
     const newBunny: CreateBunnyProfileType = {
@@ -98,6 +95,11 @@ export const BunnyProfileCreate: FC = memo(() => {
   // 画像変更のクリックをハンドルする関数
   const onClickInputImg = () => {
     refInputImg.current?.click();
+  };
+
+  // 戻るクリックの関数
+  const onClickBack = () => {
+    navigate("/bunnylist");
   };
 
   // 入力値の変更をハンドルする関数
@@ -136,9 +138,16 @@ export const BunnyProfileCreate: FC = memo(() => {
     e.target.select();
   };
 
+  if (uploadLoading) {
+    return <div>うさぎの情報の追加がLoading...</div>;
+  }
+  if (uploadError) {
+    return <div>うさぎの情報の追加に失敗しました。</div>;
+  }
+
   return (
     <div>
-      <h1>Bunny Profile - New</h1>
+      <h1>Bunny Profile - Create</h1>
       {bunny && (
         <>
           <Container>
@@ -282,10 +291,10 @@ export const BunnyProfileCreate: FC = memo(() => {
           登録
         </Button>
         <Button
-          href={`/bunnylist`}
           variant="outline-success"
           className={`${buttonStyles.clickBtn} ms-2`}
           style={{ width: "25%" }}
+          onClick={onClickBack}
         >
           戻す
         </Button>

@@ -1,5 +1,5 @@
 import { memo, useState, type FC } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 import buttonStyles from "../css/button.module.scss";
@@ -7,6 +7,9 @@ import { useIdBunnyProfiles } from "../hooks/useIdBunnyProfiles";
 import axios from "axios";
 
 export const BunnyProfile: FC = memo(() => {
+  //routerのnavigate関数を取得
+  const navigate = useNavigate();
+  // データ
   const { id } = useParams();
   const {
     bunnyProfiles: bunny,
@@ -22,7 +25,7 @@ export const BunnyProfile: FC = memo(() => {
     axios
       .delete(`/api/bunny-profile/${id}`)
       .then(() => {
-        window.location.href = "/bunnylist";
+        navigate("/bunnylist");
       })
       .catch((err) => {
         console.log(err);
@@ -35,6 +38,13 @@ export const BunnyProfile: FC = memo(() => {
     if (window.confirm("本当に削除しますか？")) {
       deleteBunnyProfile();
     }
+  };
+  //<Link to="">同じ画面遷移の効果の関数
+  const onClickEdit = () => {
+    navigate(`/bunnylist/${id}/edit`);
+  };
+  const onClickBack = () => {
+    navigate("/bunnylist");
   };
 
   if (fetchLoading) {
@@ -135,7 +145,7 @@ export const BunnyProfile: FC = memo(() => {
         </>
       )}
       <hr />
-      <Container className="d-flex">
+      <Container className="d-flex align-items-center">
         <Button
           variant="outline-danger"
           className={`${buttonStyles.deleteBtn} me-auto`}
@@ -145,20 +155,22 @@ export const BunnyProfile: FC = memo(() => {
         >
           削除
         </Button>
+
         <Button
-          href={`/bunnylist/${id}/edit`}
           variant="outline-success"
           className={`${buttonStyles.clickBtn} ms-auto`}
-          style={{ width: "15%" }}
           disabled={bunny.disabled}
+          style={{ width: "15%" }}
+          onClick={onClickEdit}
         >
           編集
         </Button>
+
         <Button
-          href="/bunnylist"
           variant="outline-success"
           className={`${buttonStyles.clickBtn} ms-2`}
           style={{ width: "25%" }}
+          onClick={onClickBack}
         >
           戻す
         </Button>

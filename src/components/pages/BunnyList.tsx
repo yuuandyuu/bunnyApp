@@ -1,11 +1,19 @@
 import { memo, type FC } from "react";
 import { Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import buttonStyles from "../css/button.module.scss";
 import { useAllBunnyProfiles } from "../hooks/useAllBunnyProfiles";
 
 export const BunnyList: FC = memo(() => {
+  const navigate = useNavigate();
   const { bunnyProfiles, loading, error } = useAllBunnyProfiles();
+  const onClickCreate = () => {
+    navigate("/bunnylist/create");
+  };
+  const onClickProfile = (id: string) => {
+    navigate(`/bunnylist/${id}`);
+  };
 
   if (loading) {
     return <div>うさぎの情報がLoading...</div>;
@@ -32,15 +40,13 @@ export const BunnyList: FC = memo(() => {
               <Card.Title>新しいうさぎは～</Card.Title>
               <Card.Text>こちらになります₍ᐢᐢ₎</Card.Text>
 
-              <div className="d-grid gap-2">
-                <Button
-                  variant="outline-success"
-                  className={buttonStyles.clickBtn}
-                  href="/bunnylist/new"
-                >
-                  うさぎを登録
-                </Button>
-              </div>
+              <Button
+                variant="outline-success"
+                className={`d-block w-100 ${buttonStyles.clickBtn}`}
+                onClick={onClickCreate}
+              >
+                うさぎを登録
+              </Button>
             </Card.Body>
           </Card>
         </div>
@@ -69,15 +75,13 @@ export const BunnyList: FC = memo(() => {
                   {bunny.description}
                 </Card.Text>
 
-                <div className="d-grid gap-2">
-                  <Button
-                    variant="outline-success"
-                    className={buttonStyles.clickBtn}
-                    href={`/bunnylist/${bunny.id}`}
-                  >
-                    詳細一覧
-                  </Button>
-                </div>
+                <Button
+                  variant="outline-success"
+                  className={`d-block w-100 ${buttonStyles.clickBtn}`}
+                  onClick={() => onClickProfile(bunny.id)}
+                >
+                  詳細一覧
+                </Button>
               </Card.Body>
             </Card>
           </div>

@@ -2,6 +2,8 @@ import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 
 import backgroundStyles from "../css/backgroundColer.module.scss";
+import { Link } from "react-router-dom";
+import fontStyles from "../css/font.module.scss";
 
 type Props = {
   children?: React.ReactNode;
@@ -19,8 +21,16 @@ export const MainLayout = ({ children }: Props) => {
           >
             <Container>
               <Nav className="me-auto flex-column">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/bunnylist">BunnyList</Nav.Link>
+                <Nav.Link as={Link} to="/" className={fontStyles.linkColor}>
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/bunnylist"
+                  className={fontStyles.linkColor}
+                >
+                  BunnyList
+                </Nav.Link>
                 {/* <NavDropdown title="FunFacts" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/funfacts">
                     All
@@ -38,19 +48,61 @@ export const MainLayout = ({ children }: Props) => {
                     <Accordion.Header>FunFacts</Accordion.Header>
                     <Accordion.Body>
                       <Nav className="me-auto flex-column">
-                        <Nav.Link href="/funfacts">All</Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts"
+                          className={fontStyles.linkColor}
+                        >
+                          All
+                        </Nav.Link>
                         <hr />
-                        <Nav.Link href="/funfacts/Diet">Diet</Nav.Link>
-                        <Nav.Link href="/funfacts/Sleep">Sleep</Nav.Link>
-                        <Nav.Link href="/funfacts/Toilet">Toilet</Nav.Link>
-                        <Nav.Link href="/funfacts/Behavior">Behavior</Nav.Link>
-                        <Nav.Link href="/funfacts/Breeding">Breeding</Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts/Diet"
+                          className={fontStyles.linkColor}
+                        >
+                          Diet
+                        </Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts/Sleep"
+                          className={fontStyles.linkColor}
+                        >
+                          Sleep
+                        </Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts/Toilet"
+                          className={fontStyles.linkColor}
+                        >
+                          Toilet
+                        </Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts/Behavior"
+                          className={fontStyles.linkColor}
+                        >
+                          Behavior
+                        </Nav.Link>
+                        <Nav.Link
+                          as={Link}
+                          to="/funfacts/Breeding"
+                          className={fontStyles.linkColor}
+                        >
+                          Breeding
+                        </Nav.Link>
                       </Nav>
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
 
-                <Nav.Link href="/settings">Settings</Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/settings"
+                  className={fontStyles.linkColor}
+                >
+                  Settings
+                </Nav.Link>
               </Nav>
             </Container>
           </Col>

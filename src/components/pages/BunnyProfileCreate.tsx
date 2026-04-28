@@ -50,7 +50,7 @@ export const BunnyProfileCreate: FC = memo(() => {
   const addBunnyProfile = (addBunny: CreateBunnyProfileType) => {
     setUploadLoading(true);
     return axios
-      .post(`/api/bunny-profile`, addBunny)
+      .post(`https://bunnyapi.hina-zakura.com/bunny-profile`, addBunny)
       .then((res) => {
         navigate("/bunnylist");
         return res.data;

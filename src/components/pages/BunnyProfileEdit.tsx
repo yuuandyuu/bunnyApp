@@ -64,7 +64,7 @@ export const BunnyProfileEdit: FC = memo(() => {
   const addBunnyProfile = (addBunny: EditBunnyProfileType) => {
     setUploadLoading(true);
     return axios
-      .put(`/api/bunny-profile/${id}`, addBunny)
+      .put(`https://bunnyapi.hina-zakura.com/bunny-profile/${id}`, addBunny)
       .then((res) => {
         navigate(`/bunnylist/${id}`);
         return res.data;

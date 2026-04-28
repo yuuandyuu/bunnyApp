@@ -9,7 +9,9 @@ export const useIdBunnyProfiles = (id: string) => {
 
   const fetchBunnyProfiles = () => {
     return axios
-      .get<BunnyProfileType>(`/api/bunny-profile/${id}`)
+      .get<BunnyProfileType>(
+        `https://bunnyapi.hina-zakura.com/bunny-profile/${id}`,
+      )
       .then((res) => res.data)
       .catch((err) => {
         console.log(err);

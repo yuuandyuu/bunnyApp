@@ -11,7 +11,9 @@ export const useAllBunnyProfiles = () => {
 
   const fetchBunnyProfiles = () => {
     return axios
-      .get<Array<BunnyProfileType>>("/api/bunny-profile/")
+      .get<Array<BunnyProfileType>>(
+        "https://bunnyapi.hina-zakura.com/bunny-profile/",
+      )
       .then((res) => res.data)
       .catch((err) => {
         console.log(err);

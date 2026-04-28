@@ -23,7 +23,7 @@ export const BunnyProfile: FC = memo(() => {
   const deleteBunnyProfile = () => {
     setDeleteLoading(true);
     axios
-      .delete(`/api/bunny-profile/${id}`)
+      .delete(`https://bunnyapi.hina-zakura.com/bunny-profile/${id}`)
       .then(() => {
         navigate("/bunnylist");
       })

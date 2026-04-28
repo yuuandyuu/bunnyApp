@@ -28,7 +28,7 @@ export const Edit: FC = memo(() => {
   const addBunnyProfile = (addBunny: string) => {
     setUploadLoading(true);
     return axios
-      .put(`/api/bunny-profile/${id}`, addBunny)
+      .put(`https://bunnyapi.hina-zakura.com/bunny-profile/${id}`, addBunny)
       .then((res) => {
         window.location.href = `/bunnylist/${id}`;
         return res.data;

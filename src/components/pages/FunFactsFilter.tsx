@@ -1,21 +1,28 @@
 import { memo, type FC } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FunFactsData } from "../data/FunFactsData";
-import { NavLink } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 
 import buttonStyles from "../css/button.module.scss";
 
 export const FunFactsFilter: FC = memo(() => {
+  // URLパラメータから分類を取得
   const { classification } = useParams();
-  const fact = FunFactsData.find((b) => b.classification === classification);
-
+  // 分類に基づいてデータをフィルタリング
   const filteredFacts = FunFactsData.filter(
     (fact) => fact.classification === classification,
   );
 
-  if (!fact) {
-    return <div>ウサギが見つかりません</div>;
+  const navigate = useNavigate();
+  const onClickBack = () => {
+    navigate("/funfacts");
+  };
+  const onClickClassification = () => {
+    navigate(`/funfacts/${classification}`);
+  };
+
+  if (!filteredFacts.length) {
+    return <div>この豆知識の分類が見つかりません</div>;
   }
   return (
     <div>
@@ -27,24 +34,28 @@ export const FunFactsFilter: FC = memo(() => {
             key={fact.id}
             className="d-flex flex-wrap align-items-center gap-1"
           >
-            <NavLink to={`/funfacts/${fact.classification}`}>
-              <Button variant={fact.variant} size="sm">
-                {fact.classification}
-              </Button>
-            </NavLink>
+            <Button
+              variant={fact.variant}
+              size="sm"
+              onClick={onClickClassification}
+            >
+              {fact.classification}
+            </Button>
 
             <p className="my-2">{fact.fact}</p>
           </div>
         );
       })}
       <hr />
-      <Button
-        href="/funfacts"
-        variant="outline-success"
-        className={buttonStyles.clickBtn}
-      >
-        戻す
-      </Button>
+      <Col xs={12} md={4} lg={3} className="ms-auto">
+        <Button
+          variant="outline-success"
+          className={`${buttonStyles.clickBtn} w-100`}
+          onClick={onClickBack}
+        >
+          戻す
+        </Button>
+      </Col>
     </div>
   );
 });

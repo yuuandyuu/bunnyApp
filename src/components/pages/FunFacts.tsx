@@ -1,6 +1,7 @@
 import { memo, useEffect, useState, type FC } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import type { FunFactsType } from "../types/FunFactsType";
 
@@ -35,6 +36,11 @@ export const FunFacts: FC = memo(() => {
     fetchFunFacts().then((data) => setFunfacts(data));
   }, []);
 
+  const navgate = useNavigate();
+  const onClickClassification = (classification: string) => {
+    navgate(`/funfacts/${classification}`);
+  };
+
   if (loading) {
     return <div>うさぎの豆知識がLoading...</div>;
   }
@@ -55,11 +61,10 @@ export const FunFacts: FC = memo(() => {
             <Button
               variant={getButtonVariant(fact.classification)}
               size="sm"
-              href={`/funfacts/${fact.classification}`}
+              onClick={() => onClickClassification(fact.classification)}
             >
               {fact.classification}
             </Button>
-
             <p className="my-2">{fact.fact}</p>
           </div>
         );

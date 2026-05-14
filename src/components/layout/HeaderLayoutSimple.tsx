@@ -16,15 +16,28 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export const HeaderLayout = ({ children }: Props) => {
+export const HeaderLayoutSimple = ({ children }: Props) => {
   const [show, setShow] = useState(false);
 
   return (
     <>
-      <Navbar expand="lg" className={backgroundStyles.LightGreen}>
+      {/* 幅はlg以上、タイトルのみ */}
+      <Navbar className={`d-none d-lg-block ${backgroundStyles.LightGreen}`}>
         <Container>
           <Navbar.Brand as={Link} to="/" className={fontStyles.linkColor}>
-            BunnyCollection
+            BunnyApp
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+
+      {/* 幅はlg以下、ハンバーガーメニュー付き */}
+      <Navbar
+        expand="lg"
+        className={`d-lg-none ${backgroundStyles.LightGreen}`}
+      >
+        <Container>
+          <Navbar.Brand as={Link} to="/" className={fontStyles.linkColor}>
+            BunnyApp
           </Navbar.Brand>
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
